@@ -18,7 +18,7 @@ const pool = new Pool({
 const getUserWithEmail = function(email) {
   return pool.query(`
   SELECT * FROM users
-  WHERE email=$1
+  WHERE email=$1::text
   LIMIT 1;
   `, [email])
     .then(res => {
@@ -34,7 +34,15 @@ exports.getUserWithEmail = getUserWithEmail;
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function(id) {
-  return Promise.resolve(users[id]);
+  return pool.query(`
+  SELECT * FROM users
+  WHERE id=$1::integer
+  LIMIT 1;
+  `, [id])
+    .then(res => {
+      if (res.rows.length === 0) return null;
+      return res.rows[0];
+    });
 };
 exports.getUserWithId = getUserWithId;
 
@@ -45,10 +53,19 @@ exports.getUserWithId = getUserWithId;
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser = function(user) {
-  const userId = Object.keys(users).length + 1;
-  user.id = userId;
-  users[userId] = user;
-  return Promise.resolve(user);
+  return pool.query(`
+  INSERT INTO users
+  (name, email, password)
+  VALUES
+  ($1::text, $2::text, $3::text)
+  RETURNING *;
+  `, [user.name, user.email, user.password])
+    .then(res => {
+      return res.rows[0];
+    })
+    .catch(error => {
+      console.log(error);
+    });
 };
 exports.addUser = addUser;
 
