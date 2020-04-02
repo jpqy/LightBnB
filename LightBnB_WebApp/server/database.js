@@ -74,15 +74,11 @@ exports.getAllReservations = getAllReservations;
  * @return {Promise<[{}]>}  A promise to the properties.
  */
 const getAllProperties = function(options, limit = 10) {
-  pool.query(`
+  return pool.query(`
   SELECT * FROM properties
   LIMIT $1::integer;
   `, [limit])
-    .then((res) => {
-      for (row of res.rows) {
-        console.log(row);
-      }
-    });
+    .then(res => res.rows);
   // const limitedProperties = {};
   // for (let i = 1; i <= limit; i++) {
   //   limitedProperties[i] = properties[i];
