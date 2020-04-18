@@ -206,7 +206,7 @@ const addProperty = function(property) {
   VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
   RETURNING *;
   `;
-  
+
   return db.query(queryString, queryParams)
     .then(res => res.rows[0])
     .catch(error => {
@@ -214,3 +214,32 @@ const addProperty = function(property) {
     });
 };
 exports.addProperty = addProperty;
+
+/**
+ * Add a reservation to the database
+ * @param {{start_date: Number, end_date: Number, property_id: Number, guest_id: Number}} reservation
+ * @return {Promise<{}>} A promise to add the reservation
+ */
+const addReservation = function(reservation) {
+  const queryParams = [
+    reservation.start_date,
+    reservation.end_date,
+    reservation.property_id,
+    reservation.guest_id
+  ];
+
+  const queryString = `
+    INSERT INTO reservations
+      (start_date , end_date , property_id , guest_id )
+    VALUES
+      ($1, $2, $3, $4)
+    RETURNING *;
+  `;
+
+  return db.query(queryString, queryParams)
+    .then(res => res.rows[0])
+    .catch(error => {
+      console.log(error);
+    });
+};
+exports.addReservation = addReservation;
