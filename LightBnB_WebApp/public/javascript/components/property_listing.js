@@ -8,9 +8,8 @@ $(() => {
           <img src="${property.thumbnail_photo_url}" alt="house">
         </section>
         <section class="property-listing__details">
-          <h3 class="property-listing__title">${property.title}</h3>
-          <ul class="property-listing__details">
-            <li>city: ${property.city}</li>
+          <h3 class="property-listing__title">${property.title} (${property.city})</h3>
+          <ul class="property-listing__details">            
             <li>number_of_bedrooms: ${property.number_of_bedrooms}</li>
             <li>number_of_bathrooms: ${property.number_of_bathrooms}</li>
             <li>parking_spaces: ${property.parking_spaces}</li>
