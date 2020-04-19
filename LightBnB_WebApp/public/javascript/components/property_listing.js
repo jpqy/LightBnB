@@ -1,7 +1,7 @@
 $(() => {
   window.propertyListing = {};
 
-  function createListing(property, isReservation) {
+  function createListing(property, isReservation, showBookingForm) {
     return `
     <article class="property-listing">
         <section class="property-listing__preview-image">
@@ -10,6 +10,7 @@ $(() => {
         <section class="property-listing__details">
           <h3 class="property-listing__title">${property.title}</h3>
           <ul class="property-listing__details">
+            <li>city: ${property.city}</li>
             <li>number_of_bedrooms: ${property.number_of_bedrooms}</li>
             <li>number_of_bathrooms: ${property.number_of_bathrooms}</li>
             <li>parking_spaces: ${property.parking_spaces}</li>
@@ -22,6 +23,7 @@ $(() => {
             <div class="property-listing__price">$${property.cost_per_night / 100.0}/night</div>
           </footer>
         </section>
+        ${showBookingForm ? `
         <section class="property-listing__booking">
           <form class="booking-form" method="POST" action="/api/book">
             <input type="hidden" value="${property.id}" name="property_id">
@@ -35,7 +37,8 @@ $(() => {
             </div>
             <button type="submit">Book</button>
           </form>
-        </section>
+        </section>` :
+        ``}
       </article>
     `;
   }

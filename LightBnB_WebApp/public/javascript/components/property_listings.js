@@ -17,11 +17,11 @@ $(() => {
   }
   window.propertyListings.clearListings = clearListings;
 
-  function addProperties(properties, isReservation = false) {
+  function addProperties(properties, isReservation = false, showBookingForm = false) {
     clearListings();
     for (const propertyId in properties) {
       const property = properties[propertyId];
-      const listing = propertyListing.createListing(property, isReservation);
+      const listing = propertyListing.createListing(property, isReservation, showBookingForm);
       addListing(listing);
     }
   }
