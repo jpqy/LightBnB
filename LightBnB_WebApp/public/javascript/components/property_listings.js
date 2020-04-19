@@ -27,4 +27,14 @@ $(() => {
   }
   window.propertyListings.addProperties = addProperties;
 
+  // Mentor Q: Not capturing the submit event
+  $(".booking-form").on('submit', function(event) {
+    event.preventDefault();
+    console.log("submitting");
+    const data = $(this).serialize();
+    makeReservation(data)
+      .then(json => {
+        console.log(json);
+      });
+  });
 });
