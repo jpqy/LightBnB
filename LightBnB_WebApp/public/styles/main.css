@@ -33,6 +33,7 @@
 .property-listing__booking {
   width: 150px;
   padding: 20px;
+  box-sizing: border-box;
 }
 .property-listing__booking form {
   height: 100%;
@@ -42,7 +43,7 @@
   align-items: center;
 }
 .property-listing__booking input {
-  width: 100%;
+  width: 90%;
 }
 
 @media screen and (max-width: 400px) {

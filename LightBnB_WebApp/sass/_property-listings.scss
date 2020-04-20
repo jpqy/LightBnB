@@ -33,7 +33,7 @@
   &__booking {
     width: 150px;
     padding: 20px;
-
+    box-sizing: border-box;
     form {
       height: 100%;
       display: flex;
@@ -42,7 +42,7 @@
       align-items: center;
     }
     input {
-      width: 100%;
+      width: 90%;
     }
   }
 }
