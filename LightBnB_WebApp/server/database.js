@@ -112,7 +112,7 @@ const getAllProperties = function(options, limit = 10) {
 
   if (options.city) {
     queryParams.push(`%${options.city}%`);
-    queryString += `city LIKE $${queryParams.length} AND `;
+    queryString += `city ILIKE $${queryParams.length} AND `;
   }
 
   if (options.owner_id) {
